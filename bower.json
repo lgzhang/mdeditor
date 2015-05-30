@@ -1,6 +1,7 @@
 {
   "name": "MdEditor",
   "version": "1.0.0",
+  "main": ["editormd.min.js", "css/editormd.min.css"],
   "homepage": "https://github.com/mfkddcwy/mdeditor",
   "authors": [
     "Ochou <mfkddcwy@gmail.com>"
