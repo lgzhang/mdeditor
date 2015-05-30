@@ -303,6 +303,7 @@
             }
         }
     };
+    editormd.settings = null;
 
     editormd.classNames = {
         tex: editormd.classPrefix + "tex"
@@ -344,7 +345,7 @@
 
             var _this = this;
             var classPrefix = this.classPrefix = editormd.classPrefix;
-            var settings = this.settings = $.extend(true, editormd.defaults, options);
+            var settings = this.settings = editormd.settings = $.extend(true, editormd.defaults, options);
 
             id = (typeof id === "object") ? settings.id : id;
 
@@ -2982,13 +2983,17 @@
 
     // Emoji graphics files url path
     editormd.emoji = {
-        path: "http://www.emoji-cheat-sheet.com/graphics/emojis/",
+        path: function() {
+            return editormd.settings.path + "emojis/";
+        },
         ext: ".png"
     };
 
     // Twitter Emoji (Twemoji)  graphics files url path    
     editormd.twemoji = {
-        path: "http://twemoji.maxcdn.com/36x36/",
+        path: function() {
+            return editormd.settings.path + "twemoji/36x36/";
+        },
         ext: ".png"
     };
 
@@ -3069,14 +3074,14 @@
                         } else if (twemojiMatchs) {
                             for (var t = 0, len3 = twemojiMatchs.length; t < len3; t++) {
                                 var twe = twemojiMatchs[t].replace(/:/g, "").replace("tw-", "");
-                                return "<img src=\"" + editormd.twemoji.path + twe + editormd.twemoji.ext + "\" title=\"twemoji-" + twe + "\" alt=\"twemoji-" + twe + "\" class=\"emoji twemoji\" />";
+                                return "<img src=\"" + editormd.twemoji.path() + twe + editormd.twemoji.ext + "\" title=\"twemoji-" + twe + "\" alt=\"twemoji-" + twe + "\" class=\"emoji twemoji\" />";
                             }
                         } else {
                             var src = (name === "+1") ? "plus1" : name;
                             src = (src === "black_large_square") ? "black_square" : src;
                             src = (src === "moon") ? "waxing_gibbous_moon" : src;
 
-                            return "<img src=\"" + editormd.emoji.path + src + editormd.emoji.ext + "\" class=\"emoji\" title=\"&#58;" + name + "&#58;\" alt=\"&#58;" + name + "&#58;\" />";
+                            return "<img src=\"" + editormd.emoji.path() + src + editormd.emoji.ext + "\" class=\"emoji\" title=\"&#58;" + name + "&#58;\" alt=\"&#58;" + name + "&#58;\" />";
                         }
                     }
                 });
